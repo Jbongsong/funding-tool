@@ -49,11 +49,8 @@
     results: JSON.stringify(savedResults),
   }),
 })
-.then(() => {
+
+  // Show success message immediately after sending request
   document.getElementById("resultMessage").style.display = "block";
-})
-.catch(error => console.error("Error submitting form:", error));
-      });
-  </script>
-</body>
-</html>
+});
+</script>
