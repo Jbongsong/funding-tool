@@ -39,25 +39,21 @@
 
       fetch("https://script.google.com/macros/s/AKfycbwiNgOcIQqiZApI33mQmkxuiv45kkadkr5wTWtBRtP_51ZYXbO7E0P0TjUuk4XZH8Eh/exec", {
         method: "POST",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: new URLSearchParams({
-          name: name,
-          email: email,
-          results: JSON.stringify(savedResults),
-        }),
-      })
-      .then(response => response.text())
-      .then(data => {
-        console.log("Response:", data);
-        document.getElementById("resultMessage").style.display = "block";
-      })
-      .catch(error => {
-        console.error("Error submitting form:", error);
+  mode: "no-cors", // Important!
+  headers: {
+    "Content-Type": "application/x-www-form-urlencoded",
+  },
+  body: new URLSearchParams({
+    name: name,
+    email: email,
+    results: JSON.stringify(savedResults),
+  }),
+})
+.then(() => {
+  document.getElementById("resultMessage").style.display = "block";
+})
+.catch(error => console.error("Error submitting form:", error));
       });
-    });
   </script>
 </body>
 </html>
