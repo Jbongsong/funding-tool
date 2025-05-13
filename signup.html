@@ -35,29 +35,26 @@
     const email = document.getElementById("email").value;
     const savedResults = JSON.parse(localStorage.getItem("fundingMatches") || "[]");
 
-fetch("https://script.google.com/macros/s/AKfycbxKHvpq6wmYlWLRUefSdAgFKClSdTtIj9_YAGtZDqyxCiu9mIX7L91O_ATbFUF1v7e1/exec", {
-  method: "POST",
-  body: JSON.stringify({
-    name: name,
-    email: email,
-    results: savedResults
-  }),
-  headers: {
-    "Content-Type": "application/json",
-  },
-})
-.then(response => response.text())
-.then(data => {
-  console.log("Submitted:", data);
-  document.getElementById("signupForm").style.display = "none";
-  document.getElementById("resultMessage").style.display = "block";
-})
-.catch(error => {
-  console.error("Error submitting form:", error);
-});
-
+    fetch("https://script.google.com/macros/s/AKfycbxbIb5y2R2SKoMzNFVRlKa8gPhhbTVoshNOIE9YwHDiEKO7hb1BCr56yFqrANtcyTHr/exec", {
+      method: "POST",
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        results: savedResults
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+    .then(response => response.text())
+    .then(data => {
+      console.log("Response:", data);
+      document.getElementById("resultMessage").style.display = "block";
+    })
+    .catch(error => console.error("Error submitting form:", error));
   });
 </script>
+
 
 </body>
 </html>
