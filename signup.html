@@ -28,31 +28,36 @@
   </div>
 
   <script>
-  document.getElementById("signupForm").addEventListener("submit", function (e) {
-    e.preventDefault();
+    document.getElementById("signupForm").addEventListener("submit", function (e) {
+      e.preventDefault();
 
-    const name = document.getElementById("name").value;
-    const email = document.getElementById("email").value;
-    const savedResults = JSON.parse(localStorage.getItem("fundingMatches") || "[]");
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const savedResults = JSON.parse(localStorage.getItem("fundingMatches") || "[]");
 
-    console.log("Submitting:", { name, email, savedResults });
-fetch("https://script.google.com/macros/s/AKfycbyFChNA-UkziLwi-BRdF2WaEMYXS4ltHd4dSrjpyELoPaFqixXV4RpYCxtYmZdlVUYu/exec", {
-  method: "POST",
-  body: new URLSearchParams({
-    name: name,
-    email: email,
-    results: JSON.stringify(savedResults),
-  }),
-})
-.then(response => response.text())
-.then(data => {
-  console.log("Response:", data);
-  document.getElementById("resultMessage").style.display = "block";
-})
-.catch(error => console.error("Error submitting form:", error));
-  });
-</script>
+      console.log("Submitting:", { name, email, savedResults });
 
-
+      fetch("https://script.google.com/macros/s/AKfycbwiNgOcIQqiZApI33mQmkxuiv45kkadkr5wTWtBRtP_51ZYXbO7E0P0TjUuk4XZH8Eh/exec", {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams({
+          name: name,
+          email: email,
+          results: JSON.stringify(savedResults),
+        }),
+      })
+      .then(response => response.text())
+      .then(data => {
+        console.log("Response:", data);
+        document.getElementById("resultMessage").style.display = "block";
+      })
+      .catch(error => {
+        console.error("Error submitting form:", error);
+      });
+    });
+  </script>
 </body>
 </html>
