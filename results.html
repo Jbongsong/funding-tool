@@ -1,3 +1,4 @@
+<!-- results.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,7 +43,7 @@
         name: "Small Business Innovation Research (SBIR)",
         industry: "Tech",
         stage: "2+ yrs",
-        amount: "$50,000 - $150,000",
+        amount: "$50,000+",
         description: "Federal grants for technology R&D and innovation-based businesses.",
         link: "https://www.sbir.gov/"
       },
@@ -140,20 +141,21 @@
     const stage = localStorage.getItem('stage');
     const amount = localStorage.getItem('amount');
 
+    // Filter matches by eligibility
     const matches = fundingRules.filter(rule =>
-  (rule.industry === "All" || rule.industry === industry) &&
-  (rule.stage === "All" || rule.stage === stage)
-);
+      (rule.industry === "All" || rule.industry === industry) &&
+      (rule.stage === "All" || rule.stage === stage)
+    );
 
-// Rank matches by closeness of amount match
-matches.sort((a, b) => {
-  const score = match => (match.amount === amount ? 0 : 1);
-  return score(a) - score(b);
-});
+    // Sort matches by closeness of amount match (top 3 relevant)
+    matches.sort((a, b) => {
+      const score = match => match.amount === amount ? 0 : 1;
+      return score(a) - score(b);
+    });
 
-// Save matches to localStorage for signup.html to access
-localStorage.setItem("fundingMatches", JSON.stringify(matches));
- 
+    // Save matches to localStorage so signup.html can use them
+    localStorage.setItem("fundingMatches", JSON.stringify(matches));
+
     const container = document.getElementById('resultsContainer');
 
     if (matches.length > 0) {
@@ -169,14 +171,14 @@ localStorage.setItem("fundingMatches", JSON.stringify(matches));
         `;
         container.appendChild(card);
       });
-      // Show "Create Account" button after matches
-const signupPrompt = document.createElement('div');
-signupPrompt.className = 'text-center mt-4';
-signupPrompt.innerHTML = `
-  <p>Want to save your results?</p>
-  <a href="signup.html" class="btn btn-success">Create an Account</a>
-`;
-container.appendChild(signupPrompt);
+
+      const signupPrompt = document.createElement('div');
+      signupPrompt.className = 'text-center mt-4';
+      signupPrompt.innerHTML = `
+        <p>Want to save your results?</p>
+        <a href="signup.html" class="btn btn-success">Create an Account</a>
+      `;
+      container.appendChild(signupPrompt);
     } else {
       container.innerHTML = "<p>No matching resources found. Please check back later or adjust your criteria.</p>";
     }
