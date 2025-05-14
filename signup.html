@@ -36,23 +36,24 @@
       const email = document.getElementById("email").value;
       const savedResults = JSON.parse(localStorage.getItem("fundingMatches") || "[]");
 
-   fetch("https://script.google.com/macros/s/AKfycbwiNgOcIQqiZApI33mQmkxuiv45kkadkr5wTWtBRtP_51ZYXbO7E0P0TjUuk4XZH8Eh/exec", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/x-www-form-urlencoded",
-  },
-  body: new URLSearchParams({
-    name: name,
-    email: email,
-    results: JSON.stringify(savedResults),
-  }),
-})
-.then(() => {
-  document.getElementById("resultMessage").style.display = "block";
-})
-.catch(error => {
-  console.error("Form submission error:", error);
-});
+      fetch("https://script.google.com/macros/s/AKfycbwiNgOcIQqiZApI33mQmkxuiv45kkadkr5wTWtBRtP_51ZYXbO7E0P0TjUuk4XZH8Eh/exec", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({
+          name: name,
+          email: email,
+          results: JSON.stringify(savedResults),
+        }),
+      })
+      .then(() => {
+        document.getElementById("resultMessage").style.display = "block";
+      })
+      .catch(error => {
+        console.error("Form submission error:", error);
+      });
+    });
   </script>
 </body>
 </html>
