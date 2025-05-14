@@ -36,32 +36,30 @@
     const email = document.getElementById("email").value;
     const savedResults = JSON.parse(localStorage.getItem("fundingMatches") || "[]");
 
-fetch('https://script.google.com/macros/s/AKfycbwiNgOcIQqiZApI33mQmkxuiv45kkadkr5wTWtBRtP_51ZYXbO7E0P0TjUuk4XZH8Eh/exec', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded'
-  },
-  body: new URLSearchParams({
-    name: name,
-    email: email,
-    results: results
-  })
-})
-.then(response => {
-  if (!response.ok) throw new Error("Network response was not ok");
-  return response.text();
-})
-.then(data => {
-  alert("✅ Results emailed successfully!");
-  document.getElementById("resultMessage").style.display = "block";
-})
-.catch(error => {
-  console.error("❌ Form submission error:", error);
-  alert("Something went wrong. Please try again or check your connection.");
-});
-
+    fetch('https://script.google.com/macros/s/AKfycbwiNgOcIQqiZApI33mQmkxuiv45kkadkr5wTWtBRtP_51ZYXbO7E0P0TjUuk4XZH8Eh/exec', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: new URLSearchParams({
+        name: name,
+        email: email,
+        results: JSON.stringify(savedResults)
+      })
+    })
+    .then(response => {
+      if (!response.ok) throw new Error("Network response was not ok");
+      return response.text();
+    })
+    .then(data => {
+      alert("✅ Results emailed successfully!");
+      document.getElementById("resultMessage").style.display = "block";
+    })
+    .catch(error => {
+      console.error("❌ Form submission error:", error);
+      alert("Something went wrong. Please try again or check your connection.");
+    });
   });
 </script>
-
 </body>
 </html>
