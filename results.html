@@ -144,7 +144,8 @@
       (rule.industry === "All" || rule.industry === industry) &&
       (rule.stage === "All" || rule.stage === stage)
     );
-
+    localStorage.setItem("fundingMatches", JSON.stringify(matches));
+ 
     const container = document.getElementById('resultsContainer');
 
     if (matches.length > 0) {
