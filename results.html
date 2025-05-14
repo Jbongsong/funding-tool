@@ -141,10 +141,18 @@
     const amount = localStorage.getItem('amount');
 
     const matches = fundingRules.filter(rule =>
-      (rule.industry === "All" || rule.industry === industry) &&
-      (rule.stage === "All" || rule.stage === stage)
-    );
-    localStorage.setItem("fundingMatches", JSON.stringify(matches));
+  (rule.industry === "All" || rule.industry === industry) &&
+  (rule.stage === "All" || rule.stage === stage)
+);
+
+// Rank matches by closeness of amount match
+matches.sort((a, b) => {
+  const score = match => (match.amount === amount ? 0 : 1);
+  return score(a) - score(b);
+});
+
+// Save matches to localStorage for signup.html to access
+localStorage.setItem("fundingMatches", JSON.stringify(matches));
  
     const container = document.getElementById('resultsContainer');
 
