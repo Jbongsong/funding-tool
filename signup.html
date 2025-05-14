@@ -1,3 +1,4 @@
+<!-- signup.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,22 +36,21 @@
       const email = document.getElementById("email").value;
       const savedResults = JSON.parse(localStorage.getItem("fundingMatches") || "[]");
 
-      console.log("Submitting:", { name, email, savedResults });
-
       fetch("https://script.google.com/macros/s/AKfycbwiNgOcIQqiZApI33mQmkxuiv45kkadkr5wTWtBRtP_51ZYXbO7E0P0TjUuk4XZH8Eh/exec", {
         method: "POST",
-  mode: "no-cors", // Important!
-  headers: {
-    "Content-Type": "application/x-www-form-urlencoded",
-  },
-  body: new URLSearchParams({
-    name: name,
-    email: email,
-    results: JSON.stringify(savedResults),
-  }),
-})
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({
+          name: name,
+          email: email,
+          results: JSON.stringify(savedResults),
+        }),
+      });
 
-  // Show success message immediately after sending request
-  document.getElementById("resultMessage").style.display = "block";
-});
-</script>
+      document.getElementById("resultMessage").style.display = "block";
+    });
+  </script>
+</body>
+</html>
