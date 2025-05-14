@@ -142,16 +142,23 @@
     const amount = localStorage.getItem('amount');
 
     // Filter matches by eligibility
-    const matches = fundingRules.filter(rule =>
-      (rule.industry === "All" || rule.industry === industry) &&
-      (rule.stage === "All" || rule.stage === stage)
-    );
+    // Normalize helper (fixes dashes and casing)
+const normalize = str => (str || "").replace(/–/g, "-").toLowerCase().trim();
 
-    // Sort matches by closeness of amount match (top 3 relevant)
-    matches.sort((a, b) => {
-      const score = match => match.amount === amount ? 0 : 1;
-      return score(a) - score(b);
-    });
+const matches = fundingRules.filter(rule =>
+  (rule.industry === "All" || normalize(rule.industry) === normalize(industry)) &&
+  (rule.stage === "All" || normalize(rule.stage) === normalize(stage))
+);
+
+// Sort matches by closeness of amount match
+matches.sort((a, b) => {
+  const score = match => match.amount === amount ? 0 : 1;
+  return score(a) - score(b);
+});
+
+// Save to localStorage for signup page
+localStorage.setItem("fundingMatches", JSON.stringify(matches));
+
 
     // Save matches to localStorage so signup.html can use them
     localStorage.setItem("fundingMatches", JSON.stringify(matches));
