@@ -36,7 +36,7 @@
     const email = document.getElementById("email").value;
     const savedResults = JSON.parse(localStorage.getItem("fundingMatches") || "[]");
 
-    fetch('https://script.google.com/macros/s/AKfycbwiNgOcIQqiZApI33mQmkxuiv45kkadkr5wTWtBRtP_51ZYXbO7E0P0TjUuk4XZH8Eh/exec', {
+    fetch('https://funding-proxy-blackfory-johnny-huangs-projects-73276650.vercel.app/api/send', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
