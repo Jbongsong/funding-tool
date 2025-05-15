@@ -36,17 +36,17 @@
     const email = document.getElementById("email").value;
     const savedResults = JSON.parse(localStorage.getItem("fundingMatches") || "[]");
 
-    fetch('https://funding-proxy.vercel.app/api/send', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: new URLSearchParams({
-        name: name,
-        email: email,
-        results: JSON.stringify(savedResults)
-      })
-    })
+    fetch('https://funding-proxy-9xzawl6gp-johnny-huangs-projects-73276650.vercel.app/api/send', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+  },
+  body: new URLSearchParams({
+    name,
+    email,
+    results: JSON.stringify(savedResults)
+  })
+})
     .then(response => {
       if (!response.ok) throw new Error("Network response was not ok");
       return response.text();
