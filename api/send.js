@@ -20,7 +20,7 @@ export default async function handler(req, res) {
 
     const formData = new URLSearchParams({ name, email, results });
 
-    const response = await fetch("https://script.google.com/macros/s/AKfycbwiNgOcIQqiZApI33mQmkxuiv45kkadkr5wTWtBRtP_51ZYXbO7E0P0TjUuk4XZH8Eh/exec", {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbzacYoDLEUH1oJRzy9MJTP7KMSe6rr5FNOxvjetS7jbJbQxtO3RwwKrftBEHDTgrNXs/exec", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: formData
